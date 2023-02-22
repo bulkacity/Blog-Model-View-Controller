@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        {{#if currentUser}}
+        <li><a href="/post/new">New Post</a></li>
+        <li>
+          <form method="post" action="/users/logout">
+            <button type="submit">Log out</button>
+          </form>
+        </li>
+        <li>Hello, {{currentUser.username}}!</li>
+        {{else}}
+        <li><a href="/users/register">Register</a></li>
+        <li><a href="/users/login">Log in</a></li>
+        {{/if}}
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {{{body}}}
+  </main>
+  <script src="/js/script.js"></script>
+</body>
+
+</html>

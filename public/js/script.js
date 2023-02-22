@@ -1,22 +1,21 @@
-const form = document.querySelector("form");
-if (form) {
-  // Listen for form submission
-  form.addEventListener("submit", async (event) => {
+// Add event listener to new post form
+const newPostForm = document.querySelector("#new-post-form");
+if (newPostForm) {
+  newPostForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const title = form.title.value;
-    const body = form.body.value;
+    const title = document.querySelector("#title").value;
+    const body = document.querySelector("#body").value;
     try {
       const response = await fetch("/post", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({ title, body }),
+        headers: { "Content-Type": "application/json" },
       });
       if (response.ok) {
-        location.href = "/";
+        window.location.href = "/";
       } else {
-        throw new Error("Error creating post");
+        console.log(response);
+        alert("Error creating post");
       }
     } catch (error) {
       console.log(error);
@@ -25,18 +24,18 @@ if (form) {
   });
 }
 
+// Add event listener to delete buttons
 const deleteButtons = document.querySelectorAll(".delete-button");
 deleteButtons.forEach((button) => {
-  // Listen for delete button click
   button.addEventListener("click", async (event) => {
-    event.preventDefault();
-    const postId = button.dataset.postId;
+    const postId = event.target.getAttribute("data-post-id");
     try {
       const response = await fetch(`/post/${postId}`, { method: "DELETE" });
       if (response.ok) {
-        location.reload();
+        window.location.href = "/";
       } else {
-        throw new Error("Error deleting post");
+        console.log(response);
+        alert("Error deleting post");
       }
     } catch (error) {
       console.log(error);
