@@ -1,0 +1,27 @@
+- app/
+    - config/
+        - config.json
+    - controllers/
+        - userController.js
+        - postController.js
+    - models/
+        - index.js
+        - user.js
+        - post.js
+    - public/
+        - css/
+        - js/
+    - routes/
+        - index.js
+        - userRoutes.js
+        - postRoutes.js
+    - views/
+        - layouts/
+        - partials/
+        - home.handlebars
+        - login.handlebars
+        - register.handlebars
+        - post.handlebars
+    - server.js
+- package.json
+- .env
