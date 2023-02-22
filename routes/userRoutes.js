@@ -1,60 +1,59 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const db = require("../models");
-const router = express.Router();
+const router = require('express').Router();
+const { User, Post } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-// Display registration form on GET
-router.get("/register", (req, res) => {
-  res.render("register");
-});
-
-// Handle user registration on POST
-router.post("/register", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = await db.User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
+    const userData = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
     });
-    req.session.userId = user.id;
-    res.redirect("/");
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error registering user");
+
+    const users = userData.map((user) => user.get({ plain: true }));
+
+    res.render('homepage', {
+      users,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
-// Display login form on GET
-router.get("/login", (req, res) => {
-  res.render("login");
-});
-
-// Handle user login on POST
-router.post("/login", async (req, res) => {
-  try {
-    const user = await db.User.findOne({
-      where: { email: req.body.email },
-    });
-    if (!user) {
-      res.status(401).send("Invalid email or password");
-    }
-    const isMatch = await bcrypt.compare(req.body.password, user.password);
-    if (!isMatch) {
-      res.status(401).send("Invalid email or password");
-    }
-    req.session.userId = user.id;
-    res.redirect("/");
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error logging in user");
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
   }
+
+  res.render('login');
 });
 
-// Handle user logout on POST
-router.post("/logout", (req, res) => {
-  req.session.destroy();
-  res.redirect("/login");
+router.get('/register', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('register');
+});
+
+router.get('/users/:id', async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.params.id, {
+      attributes: { exclude: ['password'] },
+      include: [{ model: Post }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('user-posts', {
+      ...user,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

@@ -1,42 +1,92 @@
-const express = require("express");
-const db = require("../models");
-const router = express.Router();
+const router = require('express').Router();
+const { Post, User } = require('../../models');
+const withAuth = require('../../utils/auth');
 
-// Display new post form on GET
-router.get("/post/new", (req, res) => {
-  if (!req.session.userId) {
-    res.redirect("/login");
-  }
-  res.render("new-post");
-});
-
-// Handle new post creation on POST
-router.post("/post", async (req, res) => {
+// Get all posts
+router.get('/', async (req, res) => {
   try {
-    const post = await db.Post.create({
-      title: req.body.title,
-      body: req.body.body,
-      UserId: req.session.userId,
+    const postData = await Post.findAll({
+      include: [{ model: User }],
     });
-    res.status(201).json(post);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error creating post");
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('all-posts', {
+      posts,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
-// Handle post deletion on DELETE
-router.delete("/post/:id", async (req, res) => {
+// Get single post
+router.get('/post/:id', async (req, res) => {
   try {
-    const post = await db.Post.findByPk(req.params.id);
-    if (post.UserId !== req.session.userId) {
-      res.status(403).send("You do not have permission to delete this post");
+    const postData = await Post.findByPk(req.params.id, {
+      include: [{ model: User }],
+    });
+
+    const post = postData.get({ plain: true });
+
+    res.render('single-post', {
+      post,
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Create a new post
+router.post('/', withAuth, async (req, res) => {
+  try {
+    const newPost = await Post.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
+
+    res.status(200).json(newPost);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Edit post
+router.put('/:id', withAuth, async (req, res) => {
+  try {
+    const [affectedRows] = await Post.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (affectedRows > 0) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
     }
-    await post.destroy();
-    res.sendStatus(204);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error deleting post");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Delete post
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const [affectedRows] = Post.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (affectedRows > 0) {
+      res.status(200).end();
+    } else {
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

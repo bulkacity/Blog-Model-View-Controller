@@ -1,0 +1,13 @@
+<h1>Dashboard</h1>
+<hr>
+
+{{#each posts}}
+<div>
+  <h2>{{title}}</h2>
+  <p>{{content}}</p>
+  <small>Posted by {{User.username}} on {{formattedCreatedAt}}</small>
+  <br><br>
+  <a href="/posts/edit/{{id}}">Edit</a>
+  <a href="/posts/delete/{{id}}">Delete</a>
+</div>
+{{/each}}

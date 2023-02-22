@@ -1,6 +1,6 @@
-{{#extend "layouts/main"}}
-{{#content "title"}}Home{{/content}}
-{{#content "body"}}
+{{!-- {{#extend "layouts/main"}} --}}
+{{!-- {{#content "title"}}Home{{/content}}
+{{#content "body"}} --}}
 <h1>Welcome to our blog site!</h1>
 {{#if currentUser}}
 <p>Hello, {{currentUser.username}}! Would you like to <a href="/post/new">create a new post</a>?</p>
@@ -17,11 +17,11 @@
   {{/if}}
 </div>
 {{/each}}
-{{/content}}
-{{/extend}}
-{{#extend "layouts/main"}}
-{{#content "title"}}Home{{/content}}
-{{#content "body"}}
+{{!-- {{/content}} --}}
+{{!-- {{/extend}}
+{{#extend "layouts/main"}} --}}
+{{!-- {{#content "title"}}Home{{/content}}
+{{#content "body"}} --}}
 <h1>Welcome to our blog site!</h1>
 {{#if currentUser}}
 <p>Hello, {{currentUser.username}}! Would you like to <a href="/post/new">create a new post</a>?</p>
@@ -38,5 +38,5 @@
   {{/if}}
 </div>
 {{/each}}
-{{/content}}
-{{/extend}}
+{{!-- {{/content}} --}}
+{{!-- {{/extend}} --}}

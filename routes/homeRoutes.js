@@ -1,19 +1,65 @@
-const express = require("express");
-const db = require("../models");
-const router = express.Router();
+const router = require('express').Router();
 
-// Display home page
-router.get("/", async (req, res) => {
+const { Post, User } = require('../models');
+
+// Get all posts for homepage
+router.get('/', async (req, res) => {
   try {
-    const posts = await db.Post.findAll({
-      include: [{ model: db.User, attributes: ["username"] }],
-      order: [["createdAt", "DESC"]],
+    const postData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
     });
-    res.render("home", { posts });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error retrieving posts");
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    res.render('all-posts', { posts, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    res.status(500).json(err);
   }
+});
+
+// Get single post
+router.get('/post/:id', async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    const post = postData.get({ plain: true });
+
+    res.render('single-post', { post, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get login page
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
+
+// Get sign up page
+router.get('/signup', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('signup');
 });
 
 module.exports = router;
