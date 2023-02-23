@@ -30,26 +30,28 @@
 
     {{#each blogPosts as |blogPost|}}
     <div class="row mb-2">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <h4><a href="/blogPost/{{blogPost.id}}">{{blogPost.name}}</a></h4>
       </div>
-      <div class="col-md-4">
-
-        <div class="blogPost-card">
-  <div class="blogPost-content">
-    <h4 class="blogPost-name">{{blogPost.name}}</h4>
-    <p class="blogPost-desc">{{blogPost.description}}</p>
-    <div class="blogPost-buttons">
-      <button class="btn btn-sm btn-primary edit-btn" data-id="{{blogPost.id}}">EDIT</button>
-      <button class="btn btn-sm btn-danger delete-btn" data-id="{{blogPost.id}}">DELETE</button>
     </div>
-  </div>
-</div>
+    <div class="row mb-2">
+      <div class="col-md-12">
+        <div class="blogPost-card">
+          <div class="blogPost-content" data-id="{{blogPost.id}}">
+            <h4 class="blogPost-name">{{blogPost.name}}</h4>
+            <p class="blogPost-desc">{{blogPost.description}}</p>
+            <div class="blogPost-buttons">
+              <button class="btn btn-sm btn-primary edit-btn" data-id="{{blogPost.id}}">EDIT</button>
+              <button class="btn btn-sm btn-danger delete-btn" data-id="{{blogPost.id}}">DELETE</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     {{/each}}
   </div>
   {{/if}}
 </div>
+
 
 <script src="./js/profile.js"></script> 
