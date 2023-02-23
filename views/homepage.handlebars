@@ -1,0 +1,21 @@
+
+{{#if logged_in}}
+{{#each blogPosts as |blogPost| }}
+<div class="box mb-4 blogPost">
+  <div class="box-header">
+    <h2>
+      {{{get_emoji}}}
+      <a href="/blogPost/{{blogPost.id}}">{{blogPost.name}}</a>
+    </h2>
+
+    
+  </div>
+  <div class="box-content">
+    <p>{{blogPost.description}}</p>
+  </div>
+  <p>Created by {{blogPost.user.name}} on {{format_date blogPost.date_created}}</p>
+</div>
+{{/each}}
+{{else}}
+<li><a href="/login">Please Login to view blog !</a></li>
+{{/if}}

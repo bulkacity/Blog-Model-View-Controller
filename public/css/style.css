@@ -1,101 +1,33 @@
-/* Set box sizing to border-box for all elements */
-* {
-    box-sizing: border-box;
-  }
-  
-  /* Set body margins and font */
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Style the header */
-  header {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  /* Style the navigation menu */
-  nav {
+header, .project:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.no-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #1b89bc;
+  text-decoration: none;
+  font-size: 100%;
+}
+
+.no-button:hover {
+  color: #065b83;
+  text-decoration: underline;
+}
+
+.dollar-amount {
+  color: #056605;
+  font-weight: bold;
+  margin-left: -5px;
+}
+
+  .navbar-row {
     display: flex;
     justify-content: space-between;
-    background-color: #f2f2f2;
-    padding: 20px;
   }
-  
-  nav a {
-    color: #333;
-    text-decoration: none;
-    padding: 10px;
+
+  .navbar-link {
+    margin: 0 10px;
   }
-  
-  nav a:hover {
-    background-color: #ddd;
-  }
-  
-  /* Style the main content */
-  main {
-    margin: 20px;
-  }
-  
-  /* Style the post list */
-  .post-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .post {
-    width: 400px;
-    margin: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-  }
-  
-  .post h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .post p {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  /* Style the form */
-  form {
-    margin-top: 20px;
-  }
-  
-  form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  form input[type="text"],
-  form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form button {
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  form button:hover {
-    background-color: #555;
-  }
-  
-  

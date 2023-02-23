@@ -1,18 +1,17 @@
 [
-    {
-      "username": "johndoe",
-      "email": "johndoe@example.com",
-      "password": "$2a$10$Xa2fV1nPFx.WZwmCDebJz.Ew7n.a6pXL3anq3CNXHb7E.FNN/LRZi"
-    },
-    {
-      "username": "janedoe",
-      "email": "janedoe@example.com",
-      "password": "$2a$10$ZGldpB7zIw20JtAXyrgtI.LmWYd.wbSxzdMlg81M4P4GH4hCTQn1G"
-    },
-    {
-      "username": "bobsmith",
-      "email": "bobsmith@example.com",
-      "password": "$2a$10$iRrl2g/cry8AKsW21jvuuOWOZpLEesgT8hUIWzkbjK.RCj.FH49Z6"
-    }
-  ]
-  
+  {
+    "name": "Sal",
+    "email": "sal@hotmail.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Lernantino",
+    "email": "lernantino@gmail.com",
+    "password": "password12345"
+  },
+  {
+    "name": "Amiko",
+    "email": "amiko2k20@aol.com",
+    "password": "password12345"
+  }
+]

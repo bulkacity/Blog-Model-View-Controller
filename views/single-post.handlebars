@@ -1,7 +1,0 @@
-<h1>{{post.title}}</h1>
-<small>Posted by {{post.User.username}} on {{formattedCreatedAt}}</small>
-<p>{{post.content}}</p>
-{{#if loggedIn}}
-<a href="/posts/edit/{{post.id}}">Edit</a>
-<a href="/posts/delete/{{post.id}}">Delete</a>
-{{/if}}

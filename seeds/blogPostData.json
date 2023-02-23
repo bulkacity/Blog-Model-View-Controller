@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Best Food Ive Had in Ages",
+    "description": "Its very hard to find good mexican food, and no not Taco Bell. That is trash, im talking about authentic Tacos.",
+    "needed_funding": 5000
+  },
+  {
+    "name": "Best Park to take your son on a hot day!",
+    "description": "Miami is hot, almost all year rong! So where can you take him? How about a cool airconditioned indoor park!",
+    "needed_funding": 10000
+  },
+  {
+    "name": "Not a good day!",
+    "description": "Yes, sometimes days are good, sometimes they are terrible! Lighten up and have an ice cream!",
+    "needed_funding": 800
+  }
+]
